@@ -5,6 +5,7 @@ const windowHeight = Dimensions.get('window').height
 
 export const globalStyles = StyleSheet.create({
     container: {
+        backgroundColor:'white',
         width: windowWidth,
         height: windowHeight,
         justifyContent: 'center',
