@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, AsyncStorage} from 'react-native'
 import {globalStyles} from '../globals/globalStyles.js'
 
 const windowWidth = Dimensions.get('window').width
@@ -8,7 +8,29 @@ const windowHeight = Dimensions.get('window').height
 const LoginScreen = ()=>{
 
     const [username,setUsername] = useState('')
-    const [password, userPassword] = useState('')
+    const [password, setPassword] = useState('')
+
+    function pressHandler(){
+        fetch("http://192.168.1.5:44444/Login",{
+            method:'POST',
+            headers: {
+                "Accept":"application/json",
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        .then((response)=>response.json())
+        .then((data)=>{
+            alert('Login ' + data.Message)
+            if(data.Message == 'Success')AsyncStorage.setItem('CurrentToken',data.Token)
+        })
+        .catch((err)=>{
+            alert('Connected Error!')
+        })
+    }
 
     return(
         <View style={globalStyles.container}>
@@ -19,21 +41,21 @@ const LoginScreen = ()=>{
                 <TextInput 
                     style={styles.Input}
                     placeholder={"Username"}
-                    onChangeText={null}
+                    onChangeText={(text)=>{setUsername(text)}}
                     maxLength={20}
                     defaultValue={username}
                 />
                 <TextInput 
                     style={styles.Input}
                     placeholder={"Password"}
-                    onChangeText={null}
+                    onChangeText={(text)=>{setPassword(text)}}
                     maxLength={20}
                     defaultValue={password}
                     secureTextEntry={true}
                 />
             </View>
             <View style={styles.ViewButton}>
-                <TouchableOpacity onPress={null} style={styles.Button}>
+                <TouchableOpacity onPress={()=>{ pressHandler() }} style={styles.Button}>
                     <Text style={styles.ButtonText}>Login</Text>
                 </TouchableOpacity>
             </View>
