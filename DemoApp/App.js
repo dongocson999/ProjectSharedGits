@@ -1,9 +1,13 @@
 import React from 'react'
-import LoginScreen from './components/loginScreen.js'
+import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
+import MainRoute from './routes/mainRoute.js'
 
 const App = ()=>{
   return(
-    <LoginScreen />
+    <NavigationContainer>
+      <MainRoute />
+    </NavigationContainer>
   )
 }
 

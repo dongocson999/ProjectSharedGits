@@ -5,7 +5,7 @@ import {globalStyles} from '../globals/globalStyles.js'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-const LoginScreen = ()=>{
+const LoginScreen = ({navigation})=>{
 
     const [username,setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -25,7 +25,11 @@ const LoginScreen = ()=>{
         .then((response)=>response.json())
         .then((data)=>{
             alert('Login ' + data.Message)
-            if(data.Message == 'Success')AsyncStorage.setItem('CurrentToken',data.Token)
+            if(data.Message == 'Success')
+            {
+                AsyncStorage.setItem('CurrentToken',data.Token)
+                navigation.navigate('HomeStack')
+            }
         })
         .catch((err)=>{
             alert('Connected Error!')
