@@ -1,5 +1,5 @@
-var Login = (username,password,navigation)=>{
-    fetch("http://10.10.10.10:44444/API/Login",{
+var Login = (username,password,navigation,AsyncStorage)=>{
+    fetch("http://192.168.1.5:44444/API/Login",{
             method:'POST',
             headers: {
                 "Accept":"application/json",
@@ -13,7 +13,6 @@ var Login = (username,password,navigation)=>{
         .then((response)=>response.json())
         .then((data)=>{
             alert('Login ' + data.Message)
-            navigation.navigate('HomeStack')
             if(data.Message == 'Success')
             {
                 AsyncStorage.setItem('CurrentToken',data.Token)
@@ -22,7 +21,7 @@ var Login = (username,password,navigation)=>{
             }
         })
         .catch((err)=>{
-            alert('Connected Error!')
+            alert('Connected Error!' + err)
         })
 }
 
