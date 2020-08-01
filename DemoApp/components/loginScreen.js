@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, AsyncStorage} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import {globalStyles} from '../globals/globalStyles.js'
 import { LoginFunc } from '../functions/loginFunction.js'
 
@@ -12,7 +13,7 @@ const LoginScreen = ({navigation})=>{
     const [password, setPassword] = useState('')
 
     async function pressHandler(){
-        await LoginFunc(username,password,navigation)
+        await LoginFunc(username,password,navigation,AsyncStorage)
     }
 
     return(

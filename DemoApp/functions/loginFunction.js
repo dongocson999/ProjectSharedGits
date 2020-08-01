@@ -1,5 +1,5 @@
-var Login = (username,password,navigation)=>{
-    fetch("http://10.10.10.10:44444/Login",{
+var Login = (username,password,navigation,AsyncStorage)=>{
+    fetch("http://192.168.1.5:44444/Login",{
             method:'POST',
             headers: {
                 "Accept":"application/json",
@@ -22,7 +22,7 @@ var Login = (username,password,navigation)=>{
             }
         })
         .catch((err)=>{
-            alert('Connected Error!')
+            alert('Connected Error!' + err)
         })
 }
 
