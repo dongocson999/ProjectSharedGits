@@ -25,6 +25,14 @@ class APIServer{
         this.app.use(express.static('./Publics'))
     }
 
+    //isAuthentication function
+    isAuthentication(req,res,next){
+        var token = req.headers.get('authentication')
+        var key = fs.readFileSync(__dirname + '/privateKey.pem')
+        var data = jwt.verify(token,key,{algorithm: 'HS256'})
+        
+    }
+
     //config route API server function
     configRouteAPI(){
         //Default route
@@ -33,7 +41,7 @@ class APIServer{
         })
 
         //Login route 
-        this.app.post('/Login',(req,res)=>{
+        this.app.post('/API/Login',(req,res)=>{
             var user = req.body.username
             var pass = req.body.password
             console.log(user + ' - ' + pass)

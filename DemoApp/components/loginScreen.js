@@ -11,8 +11,8 @@ const LoginScreen = ({navigation})=>{
     const [username,setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    async function pressHandler(){
-        await LoginFunc(username,password,navigation)
+    function pressHandler(){
+        LoginFunc(username,password,navigation)
     }
 
     return(
