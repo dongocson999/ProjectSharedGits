@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, AsyncStorage} from 'react-native'
 import {globalStyles} from '../globals/globalStyles.js'
+import { LoginFunc } from '../functions/loginFunction.js'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -10,30 +11,8 @@ const LoginScreen = ({navigation})=>{
     const [username,setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    function pressHandler(){
-        fetch("http://192.168.1.5:44444/Login",{
-            method:'POST',
-            headers: {
-                "Accept":"application/json",
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        })
-        .then((response)=>response.json())
-        .then((data)=>{
-            alert('Login ' + data.Message)
-            if(data.Message == 'Success')
-            {
-                AsyncStorage.setItem('CurrentToken',data.Token)
-                navigation.navigate('HomeStack')
-            }
-        })
-        .catch((err)=>{
-            alert('Connected Error!')
-        })
+    async function pressHandler(){
+        await LoginFunc(username,password,navigation)
     }
 
     return(
@@ -48,6 +27,7 @@ const LoginScreen = ({navigation})=>{
                     onChangeText={(text)=>{setUsername(text)}}
                     maxLength={20}
                     defaultValue={username}
+                    autoCapitalize={'none'}
                 />
                 <TextInput 
                     style={styles.Input}
@@ -56,6 +36,7 @@ const LoginScreen = ({navigation})=>{
                     maxLength={20}
                     defaultValue={password}
                     secureTextEntry={true}
+                    autoCapitalize={'none'}
                 />
             </View>
             <View style={styles.ViewButton}>
@@ -91,6 +72,7 @@ const styles = StyleSheet.create({
     Input: {
         fontSize:20,
         width: windowWidth*70/100,
+        height: 50, //height for iPhone
         textAlign:'center',
         borderWidth: 1,
         borderRadius: 20
