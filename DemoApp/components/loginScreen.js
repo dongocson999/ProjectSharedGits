@@ -3,7 +3,7 @@ import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions} from 'r
 import AsyncStorage from '@react-native-community/async-storage'
 import {globalStyles} from '../globals/globalStyles.js'
 import { LoginFunc } from '../functions/loginFunction.js'
-
+//asdasd
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
