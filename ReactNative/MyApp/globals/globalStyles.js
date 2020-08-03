@@ -9,6 +9,7 @@ export const globalStyles = StyleSheet.create({
         width: windowWidth,
         height: windowHeight,
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:'white'
     }
 })
